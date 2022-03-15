@@ -1,7 +1,9 @@
 import os, glob, random
+import time
 from configparser import ConfigParser
 from telethon import TelegramClient
 import huepy
+
 config = ConfigParser()
 config.read('Config.cfg')
 api_id = int(config['telegram']['api_id'])
@@ -43,6 +45,12 @@ print("\u001b[38;5;63m[*]\u001b[0m Using API_HASH " + api_hash)
 client = TelegramClient('session', api_id, api_hash)
 
 
+def userlist():
+    users = open('Users.txt').read().splitlines()
+    upload_users = random.choice(users)
+    return upload_users
+
+
 def randomize(k):
     if k == 1:
         lines = open('Phrases.txt').read().splitlines()
@@ -62,11 +70,54 @@ async def sendimages(bot_name, randomize, k):
     print("\u001b[38;5;63m[*]\u001b[0m Done")
 
 
+async def autosend(k, timeout, bot_name):
+    for jpgfile in glob.iglob(os.path.join("Pictures", "*.jpg")):
+        print("\u001b[38;5;63m[*]\u001b[0m Sending " + jpgfile)
+        bot_name = userlist()
+        await client.send_file(bot_name, jpgfile, caption=randomize(k))
+    for pngfile in glob.iglob(os.path.join("Pictures", "*.png")):
+        print("\u001b[38;5;63m[*]\u001b[0m Sending " + pngfile)
+        bot_name = userlist()
+        await client.send_file(bot_name, pngfile, caption=randomize(k))
+    print("\u001b[38;5;63m[*]\u001b[0m Done, next in " + str(int(timeout / 60)) + " minutes")
+    time.sleep(timeout)
+    await autosend(k, timeout, bot_name)
+
+
+async def modeselect(k):
+    print("\u001b[38;5;63m[*]\u001b[0m Select application mode. For new users recommended Manual mode")
+    print("\u001b[0m[1] Manual")
+    print("\u001b[0m[2] Auto")
+    mode = input("\u001b[31mAthena \u001b[0m> ")
+    while 1:
+        if mode == '1':
+            try:
+                await initialize(k)
+                break
+            except:
+                await modeselect(k)
+                break
+        elif mode == '2':
+            try:
+                print("\u001b[38;5;63m[*]\u001b[0m Enter timeout time (in minutes)")
+                timeout = int(input("\u001b[31mAthena \u001b[0m> ")) * 60
+                await autosend(k, timeout, bot_name=userlist())
+                break
+            except:
+                await modeselect(k)
+        else:
+            print("\u001b[38;5;1m[-]\u001b[0m Incorrect input")
+            await modeselect(k)
+
+
 async def initialize(k):
     print("\u001b[38;5;63m[*]\u001b[0m Select what do you want to spam")
     print("\u001b[0m[1] Bot")
     print("\u001b[0m[2] User")
     option = input("\u001b[31mAthena \u001b[0m> ")
+    if option != '1' and option != '2':
+        print("\u001b[38;5;1m[-]\u001b[0m Incorrect input")
+        await initialize(k)
     print("\u001b[38;5;63m[*]\u001b[0m Enter Target Name without using @. Example: armyrusBOT")
     bot_name = input("\u001b[31mAthena \u001b[0m> ")
 
@@ -83,7 +134,7 @@ async def initialize(k):
             except:
                 await main()
         else:
-            print("\u001b[38;5;63m[*]\u001b[0m Incorrect input")
+            print("\u001b[38;5;1m[-]\u001b[0m Incorrect input")
             await main()
     print("\u001b[38;5;63m[*]\u001b[0m Do you want to use random phrases from a file y/N ?")
     fileusage = input("\u001b[31mAthena \u001b[0m> ")
@@ -103,16 +154,15 @@ async def initialize(k):
             except:
                 await main()
         else:
-            print("\u001b[38;5;63m[*]\u001b[0m Incorrect input")
+            print("\u001b[38;5;1m[-]\u001b[0m Incorrect input")
             await main()
     input("\u001b[38;5;63m[*]\u001b[0m Press Enter to choose another target")
     await initialize(k)
 
 
 with client:
-    client.loop.run_until_complete(initialize(k=0))
+    client.loop.run_until_complete(modeselect(k=0))
 
 
 async def main():
-    await initialize()
-
+    await modeselect(k=0)
