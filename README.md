@@ -49,6 +49,10 @@ Upload pictures in jpg/png format in the Pictures folder
     Double-click on Athena.exe  
     Enter your phone and recieved code
     Enter username which you would to spam and press enter
+    
+    
+   ![Windows](https://user-images.githubusercontent.com/30958621/158412082-eb8729bb-7451-4845-bb6a-fd6e87c99d03.jpg)
+ 
 
 ## Linux
     git clone https://github.com/Darling-dev/Athena.git
