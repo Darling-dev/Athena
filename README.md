@@ -14,7 +14,8 @@
 
     Athena is a simple application that uses an Telethon library to spam.
     Athena sends images which contains in Pictures folder to specify bot or user.
-    It is also possible to add a description to the sent pictures by editing Phrases.txt.
+    It is possible to add a description to the sent pictures by editing Phrases.txt.
+    Also you can choose auto mode and spam list of bots or users by adding them in Users.txt.
     Don't use this tool too often, it can lead to limiting your account.
     
 
