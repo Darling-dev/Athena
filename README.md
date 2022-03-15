@@ -60,6 +60,8 @@ Upload pictures in jpg/png format in the Pictures folder
     python Athena.py
     Enter your phone and recieved code
     Enter username which you would to spam and press enter
+    
+   ![Linux](https://user-images.githubusercontent.com/30958621/158426074-30f6f0ef-86a5-4665-a372-9faf42bc5b8d.png)
 #
     Make sure you have installed Python 3.9.7 and required libraries (os, glob, telethon, configparser).
     To install specify library:
