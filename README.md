@@ -13,7 +13,8 @@
 # About Athena
 
     Athena is a simple application that uses an Telethon library to spam.
-    Athena sends images which contains in Pictures folder to specify bot or user. 
+    Athena sends images which contains in Pictures folder to specify bot or user.
+    It is also possible to add a description to the sent pictures by editing Phrases.txt.
     Don't use this tool too often, it can lead to limiting your account.
     
 
@@ -47,8 +48,8 @@ Upload pictures in jpg/png format in the Pictures folder
 ## Windows
     To start using Athena 
     Double-click on Athena.exe  
-    Enter your phone and recieved code
-    Enter username which you would to spam and press enter
+    Enter your phone and recieved code (at the first authorization)
+    Select needed options and start attack
     
     
    ![Windows](https://user-images.githubusercontent.com/30958621/158412082-eb8729bb-7451-4845-bb6a-fd6e87c99d03.jpg)
@@ -57,19 +58,12 @@ Upload pictures in jpg/png format in the Pictures folder
 ## Linux
     git clone https://github.com/Darling-dev/Athena.git
     cd Athena/
+    pip install -r requirements.txt
     python Athena.py
-    Enter your phone and recieved code
-    Enter username which you would to spam and press enter
+    Enter your phone and recieved code (at the first authorization)
+    Select needed options and start attack
     
    ![Linux](https://user-images.githubusercontent.com/30958621/158426074-30f6f0ef-86a5-4665-a372-9faf42bc5b8d.png)
-#
-    Make sure you have installed Python 3.9.7 and required libraries (os, glob, telethon, configparser).
-    To install specify library:
-
-```shell
-pip install library
-```
-***
 
 
 # Athena disclaimer
